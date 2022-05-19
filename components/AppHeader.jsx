@@ -8,7 +8,6 @@ import {
   Text,
   Menu,
   Divider,
-  Tabs,
   Burger,
 } from '@mantine/core';
 import { useBooleanToggle } from '@mantine/hooks';
@@ -18,8 +17,6 @@ import {
   Star,
   Message,
   Settings,
-  PlayerPause,
-  Trash,
   SwitchHorizontal,
   ChevronDown,
 } from 'tabler-icons-react';
@@ -64,29 +61,7 @@ const useStyles = createStyles((theme) => ({
     backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.white,
   },
 
-  tabs: {
-    [theme.fn.smallerThan('sm')]: {
-      display: 'none',
-    },
-  },
-
-  tabsList: {
-    borderBottom: '0 !important',
-  },
-
-  tabControl: {
-    fontWeight: 500,
-    height: 38,
-
-    '&:hover': {
-      backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[1],
-    },
-  },
-
-  tabControlActive: {
-    borderColor: `${theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[2]
-      } !important`,
-  },
+  
 }));
 
 export default function HeaderTabs({ user }) {
@@ -99,7 +74,7 @@ export default function HeaderTabs({ user }) {
       <Container className={classes.mainSection}>
         <Group position="apart">
           <Link href="/home" passHref>
-            <Text component="a" color="white" style={{ fontSize: 25, fontWeight: 800}}>AI.URUS</Text>
+            <Text component="a" color="white" style={{ fontSize: 25, fontWeight: 800 }}>AI.URUS</Text>
           </Link>
 
           <Burger
@@ -140,18 +115,15 @@ export default function HeaderTabs({ user }) {
               Your comments
             </Menu.Item>
 
+            <Divider />
+            
             <Menu.Label>Settings</Menu.Label>
-            <Menu.Item icon={<Settings size={14} />}>Account settings</Menu.Item>
+            <Link href="/profile" passHref>
+              <Menu.Item icon={<Settings size={14} />}>Account settings</Menu.Item>
+            </Link>
             <Menu.Item icon={<SwitchHorizontal size={14} />}>Change account</Menu.Item>
             <Menu.Item icon={<Logout size={14} />}>Logout</Menu.Item>
 
-            <Divider />
-
-            <Menu.Label>Danger zone</Menu.Label>
-            <Menu.Item icon={<PlayerPause size={14} />}>Pause subscription</Menu.Item>
-            <Menu.Item color="red" icon={<Trash size={14} />}>
-              Delete account
-            </Menu.Item>
           </Menu>
         </Group>
       </Container>
