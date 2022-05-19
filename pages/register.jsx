@@ -102,9 +102,9 @@ export default function RegisterPage() {
             >
               <Title order={2} mb="lg" align="center">REGISTER ACCOUNT</Title>
               <TextInput label="Username" placeholder="username" size="md" required />
-              <Text size="sm" color="dimmed">Input a valid email address</Text>
-              <TextInput label="Email address" placeholder="hello@gmail.com" mt="md" size="md" required />
               <Text size="sm" color="dimmed">Username must unique</Text>
+              <TextInput label="Email address" placeholder="hello@gmail.com" mt="md" size="md" required />
+              <Text size="sm" color="dimmed">Input a valid email address</Text>
               <PasswordInput label="Password" placeholder="password" mt="md" size="md" required />
               <Text size="sm" color="dimmed">Password must contain at least 8 characters including an uppercase letter, a symbol, and a number</Text>
               <PasswordInput label="Repeat Password" placeholder="repeat password" mt="md" size="md" required />
