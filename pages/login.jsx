@@ -3,19 +3,18 @@ import {
   createStyles,
   TextInput,
   PasswordInput,
-  Checkbox,
   Button,
   Title,
   Text,
   Anchor,
-  Group,
   SimpleGrid,
-  Box,
   Stack,
   Image,
   Container
 } from '@mantine/core';
+import { useForm } from '@mantine/form'
 import Link from 'next/link';
+import Joi from 'joi';
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -35,18 +34,32 @@ const useStyles = createStyles((theme) => ({
     color: theme.colorScheme === 'dark' ? theme.white : theme.black,
     fontFamily: `Greycliff CF, ${theme.fontFamily}`,
   },
-
-  logo: {
-    color: theme.colorScheme === 'dark' ? theme.white : theme.black,
-    width: 120,
-    display: 'block',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-  },
 }));
 
-export default function RegisterPage() {
+const schema = Joi.object({
+  email: Joi.string().email({ tlds: { allow: false } }).message('Invalid email').required(),
+  password: Joi.string().min(8).pattern(new RegExp('[a-zA-Z0-9]{3,30}$')).required(),
+})
+  .xor('password', 'access')
+  .with('passwrod', 'repeatPassword');
+
+schema.validate({
+})
+
+export default function LoginPage() {
   const { classes } = useStyles();
+  const form = useForm({
+    initialValues: {
+      username: '',
+      email: '',
+      password: '',
+    },
+    validate: {
+      // username: (value) => (value.match ? null : 'Username must unique'),
+      email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
+      password: (value) => (value.length < 8 ? 'Passwords should contain at least 8 characters including an uppercase letter, a symbol, and a number' : null),
+    },
+  })
   return (
     <div className={classes.wrapper}>
       <SimpleGrid cols={2} spacing={0}>
@@ -75,7 +88,9 @@ export default function RegisterPage() {
               }}
             >
               <Text style={{ fontSize: 64, lineHeight: 1 }}>Welcome To</Text>
-              <Text style={{ fontSize: 128, fontWeight: 700, lineHeight: 1 }}>AI.URUS</Text>
+              <Link href="/" passHref>
+                <Text style={{ fontSize: 128, fontWeight: 700, lineHeight: 1 }}>AI.URUS</Text>
+              </Link>
             </Stack>
             <Text style={{ fontSize: 48 }}>A place where you can manage you or your following affairs...</Text>
           </div>
@@ -86,22 +101,42 @@ export default function RegisterPage() {
             mt="auto"
           />
         </div>
+
         <Paper className={classes.form} radius={0}>
           <Container style={{
             display: 'grid',
             height: '100vh',
             placeItems: 'center'
           }}>
-            <div
+            <form
+              onSubmit={form.onSubmit((values) => console.log(values))}
               style={{
                 width: 'min(550px, 100%)',
                 marginInline: 'auto'
               }}
             >
               <Title order={2} mb="lg" align="center">LOGIN ACCOUNT</Title>
-              <TextInput label="Username / Email address" placeholder="hello@gmail.com" mt="md" size="md" required />
-              <PasswordInput label="Password" placeholder="password" mt="md" size="md" required />
-              <Text size="sm" color="dimmed">Password must contain at least 8 characters including an uppercase letter, a symbol, and a number</Text>
+
+              <TextInput
+                label="Username / Email address"
+                value={form.values.email}
+                onChange={(event) => form.setFieldValue('email', event.currentTarget.value)}
+                placeholder="username or your@email.com"
+                mt="md"
+                size="md"
+                required
+              />
+
+              <PasswordInput
+                label="Password"
+                value={form.values.password}
+                onChange={(event) => form.setFieldValue('password', event.currentTarget.value)}
+                placeholder="password"
+                mt="md"
+                size="md"
+                required
+              />
+
               <Button fullWidth mt="xl" size="md" >
                 Login
               </Button>
@@ -113,11 +148,9 @@ export default function RegisterPage() {
                     Register
                   </Anchor>
                 </Link>
-
               </Text>
-            </div>
+            </form>
           </Container>
-
         </Paper>
       </SimpleGrid>
     </div>
