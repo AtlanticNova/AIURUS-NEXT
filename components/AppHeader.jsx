@@ -47,7 +47,7 @@ const useStyles = createStyles((theme) => ({
     transition: 'background-color 100ms ease',
 
     '&:hover': {
-      backgroundColor: theme.colors.gray[6]
+      backgroundColor: theme.colors.dark[5]
     },
   },
 
@@ -58,10 +58,9 @@ const useStyles = createStyles((theme) => ({
   },
 
   userActive: {
-    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.white,
+    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.dark[5],
   },
-
-  
+    
 }));
 
 export default function HeaderTabs({ user }) {
@@ -96,9 +95,9 @@ export default function HeaderTabs({ user }) {
                 className={cx(classes.user, { [classes.userActive]: userMenuOpened })}
               >
                 <Group spacing={7}>
-                  <Avatar src={user.image} alt={user.name} radius="xl" size={20} />
+                  <Avatar src={user.image} alt={user.username} radius="xl" size={20} />
                   <Text weight={500} size="sm" sx={{ lineHeight: 1 }} mr={3} color="white">
-                    {user.name}
+                    {user.username}
                   </Text>
                   <ChevronDown size={12} color="white" />
                 </Group>
@@ -122,7 +121,9 @@ export default function HeaderTabs({ user }) {
               <Menu.Item icon={<Settings size={14} />}>Account settings</Menu.Item>
             </Link>
             <Menu.Item icon={<SwitchHorizontal size={14} />}>Change account</Menu.Item>
-            <Menu.Item icon={<Logout size={14} />}>Logout</Menu.Item>
+            <Link href="/" passHref>
+              <Menu.Item icon={<Logout size={14} />}>Logout</Menu.Item>
+            </Link>
 
           </Menu>
         </Group>

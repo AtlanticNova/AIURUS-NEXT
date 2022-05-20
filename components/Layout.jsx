@@ -4,7 +4,7 @@ import { Container } from '@mantine/core'
 export default function Layout({ children }) {
   return (
     <div>
-      <HeaderTabs user={{ image: '/assets/Profile.svg', name: 'Martinus Andika N' }} />
+      <HeaderTabs user={{ image: '/assets/Profile.svg', username: 'Martinus Andika N' }} />
       <Container>
         {children}
       </Container>
