@@ -1,17 +1,6 @@
-// import { Title } from "@mantine/core"
-
-// export default function Home() {
-  //   return (
-    //     <Layout>
-    //       <Title>Profile Page</Title>
-    
-    //     </Layout>
-    //   )
-    // }
-    
 import React from 'react';
-import { createStyles, Avatar, Text, Group } from '@mantine/core';
-import { PhoneCall, At } from 'tabler-icons-react';
+import { createStyles, Image, Text, Group, SimpleGrid, Button, Title, Divider } from '@mantine/core';
+import { Mail } from 'tabler-icons-react';
 import Layout from "../components/Layout"
 
 const useStyles = createStyles((theme) => ({
@@ -24,37 +13,53 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export default function UserInfoIcons({ avatar, name, title, phone, email }) {
+export default function UserInfoIcons() {
   const { classes } = useStyles();
   return (
     <Layout>
       <div>
-        <Group noWrap>
-          <Avatar src={avatar} size={94} radius="md" />
-          <div>
-            <Text size="xs" sx={{ textTransform: 'uppercase' }} weight={700} color="dimmed">
-              {title}
-            </Text>
+        <SimpleGrid cols={2}
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            height: '92vh',
+            paddingInline: 46,
+            textAlign: 'center',
+          }}>
+          <Image src={'./assets/profile.svg'} size={100} mt={50} radius="md" />
+          <div
 
-            <Text size="lg" weight={500} className={classes.name}>
-              {name}
-            </Text>
+          >
+            <Button size="xs" color="gray" mb={20}>
+              Choose Profile Picture
+            </Button>
 
-            <Group noWrap spacing={10} mt={3}>
-              <At size={16} className={classes.icon} />
-              <Text size="xs" color="dimmed">
-                {email}
+            <Title size="xl" sx={{ textTransform: 'uppercase', color: "#00A3FF" }} weight={700}  >
+              Martinus Andika N
+            </Title>
+
+            <p size="lg" weight={500} className={classes.name}>
+              I am pursuing computer science because I have been fascinated by technologies in general and computers in particular from the beginning.
+            </p>
+
+            <Divider mt={25} mb={25} />
+            <Title sx={{ color: '#00A3FF' }}>EMAIL</Title>
+
+            <Group noWrap spacing={10} mt={3}
+              style={{
+                justifyContent: 'center'
+              }}
+            >
+              <Mail size={36} className={classes.icon} />
+              <Text size="xl" color="dimmed">
+                idiotcolony97@gmail.com
               </Text>
             </Group>
 
-            <Group noWrap spacing={10} mt={5}>
-              <PhoneCall size={16} className={classes.icon} />
-              <Text size="xs" color="dimmed">
-                {phone}
-              </Text>
-            </Group>
           </div>
-        </Group>
+        </SimpleGrid>
       </div>
     </Layout>
   );
